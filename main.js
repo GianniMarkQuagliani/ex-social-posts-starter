@@ -57,60 +57,70 @@ const posts = [
     }
 ];
 
-// Milestone 2: Stampiamo i post del nostro feed
-const container = document.getElementById("container");
+
+// Funzione per formattare una data nel formato gg/mm/aaaa
+function formatDate(dateString) {
+    const options = { day: 'numeric', month: 'numeric', year: 'numeric' };
+    return new Date(dateString).toLocaleDateString('it-IT', options);
+}
+
+// Funzione per ottenere le iniziali del nome dell'autore
+function getInitials(name) {
+    const nameParts = name.split(' ');
+    return nameParts.map(part => part[0]).join('');
+}
 
 // Funzione per creare un elemento HTML per rappresentare un post
 function createPostElement(post) {
-    // Creo un nuovo elemento div per rappresentare un post
+        // Creo un nuovo elemento div per rappresentare un post
     const postElement = document.createElement("div");
     postElement.className = "post";
-    
-    // Creo l'intestazione del post
+
+        // Creo l'intestazione del post
     const postHeader = document.createElement("div");
     postHeader.className = "post__header";
-    
-    // Creo un elemento per contenere i metadati del post come autore e data
+
+        // Creo un elemento per contenere i metadati del post come autore e data
     const postMeta = document.createElement("div");
     postMeta.className = "post-meta";
-    
+
     // Creo un elemento per l'icona del profilo dell'autore
     const postMetaIcon = document.createElement("div");
     postMetaIcon.className = "post-meta__icon";
-    
+
     // Creo un elemento img per l'immagine del profilo dell'autore
     const profilePic = document.createElement("img");
     profilePic.className = "profile-pic";
-    profilePic.src = post.author.image;
+    profilePic.src = post.author.image || `https://via.placeholder.com/100x100?text=${getInitials(post.author.name)}`;
     profilePic.alt = post.author.name;
-    
+
     // Collego l'immagine del profilo all'elemento dell'icona
     postMetaIcon.appendChild(profilePic);
-    
+
     // Creo un elemento per i metadati dell'autore e della data
     const postMetaData = document.createElement("div");
     postMetaData.className = "post-meta__data";
-    
+
     // Creo un elemento per il nome dell'autore
     const postMetaAuthor = document.createElement("div");
     postMetaAuthor.className = "post-meta__author";
     postMetaAuthor.textContent = post.author.name;
-    
+
     // Creo un elemento per la data del post (es. "4 mesi fa")
     const postMetaTime = document.createElement("div");
     postMetaTime.className = "post-meta__time";
 
     // Calcolo della data effettiva
-    postMetaTime.textContent = "4 mesi fa";
-    
+    postMetaTime.textContent = formatDate(post.created);
+
     // Collego il nome dell'autore e la data ai metadati
     postMetaData.appendChild(postMetaAuthor);
     postMetaData.appendChild(postMetaTime);
-    
+
     // Collego l'icona del profilo e i metadati all'elemento dei metadati
     postMeta.appendChild(postMetaIcon);
     postMeta.appendChild(postMetaData);
-    
+
     // Collego i metadati all'intestazione del post
     postHeader.appendChild(postMeta);
     
@@ -118,26 +128,25 @@ function createPostElement(post) {
     const postText = document.createElement("div");
     postText.className = "post__text";
     postText.textContent = post.content;
-    
+
     // Creo un elemento per l'immagine del post
     const postImage = document.createElement("div");
     postImage.className = "post__image";
-    
+
     // Creo un elemento img per l'immagine del post
     const img = document.createElement("img");
     img.src = post.media;
     img.alt = "";
-    
+
     // Collego l'immagine del post all'elemento dell'immagine
     postImage.appendChild(img);
-    
+
     // Creo un elemento per il footer del post
     const postFooter = document.createElement("div");
     postFooter.className = "post__footer";
 
     // Creo un elemento per il footer del post
     const likes = document.createElement("div");
-    console.log(likes)
     likes.className = "likes js-likes";
 
     // Creo un elemento per il pulsante "Mi Piace"
@@ -159,7 +168,6 @@ function createPostElement(post) {
     const likeButtonLabel = document.createElement("span");
     likeButtonLabel.className = "like-button__label";
     likeButtonLabel.textContent = "Mi Piace";
-    console.log(likeButton)
 
     // Collego l'icona e l'etichetta al pulsante "Mi Piace"
     likeButton.appendChild(likeButtonIcon);
@@ -172,26 +180,18 @@ function createPostElement(post) {
     const likesCounter = document.createElement("div");
     likesCounter.className = "likes__counter";
     likesCounter.innerHTML = `Piace a <b id="like-counter-${post.id}" class="js-likes-counter">${post.likes}</b> persone`;
-    console.log(likesCounter)
 
     // Collego il pulsante "Mi Piace" e il conteggio al contenitore dei "Mi Piace"
     likes.appendChild(likesCta);
     likes.appendChild(likesCounter);
-    console.log(likesCta)
-    console.log(likesCounter)
-
     // Collego il contenitore dei "Mi Piace" al footer del post
     postFooter.appendChild(likes);
 
     // Collego tutti gli elementi creati al post completo
     postElement.appendChild(postHeader);
-    console.log(postHeader)
     postElement.appendChild(postText);
-    console.log(postText)
     postElement.appendChild(postImage);
-    console.log(postImage)
     postElement.appendChild(postFooter);
-    console.log(postFooter)
 
     // Restituisci l'elemento del post completo
     return postElement;
@@ -199,11 +199,11 @@ function createPostElement(post) {
 }
 
 // Iteriamo attraverso l'array di post e creiamo gli elementi HTML per ciascun post
+const container = document.getElementById("container");
+
 posts.forEach((post) => {
     const postElement = createPostElement(post);
     container.appendChild(postElement);
-    console.log(postElement)
-    console.log(post)
 });
 
 // Milestone 3: Gestiamo il click sul pulsante "Mi Piace"
@@ -216,27 +216,25 @@ const likedPostIds = [];
 likeButtons.forEach((button) => {
     // Aggiungo un listener per il click su ciascun pulsante
     button.addEventListener("click", (event) => {
-    // Gestisco il comportamento predefinito del link (evita che la pagina venga ricaricata)
-    event.preventDefault();
-    const postId = parseInt(button.getAttribute("data-postid"));
+        // Gestisco il comportamento predefinito del link (evita che la pagina venga ricaricata)
+        event.preventDefault();
+        const postId = parseInt(button.getAttribute("data-postid"));
 
-    // Verifico se l'ID del post è già presente nell'array dei post "Mi Piace"
-    if (!likedPostIds.includes(postId)) {
-
-        // Se l'ID del post non è presente, lo aggiungo all'array
-        likedPostIds.push(postId);
-  
-        // Aggiungo la classe "like-button--liked" al pulsante per cambiare il suo aspetto
-        button.classList.add("like-button--liked");
-  
         // Trovo l'elemento del conteggio dei "Mi Piace" corrispondente a questo post
         const likeCounter = document.getElementById(`like-counter-${postId}`);
-  
+
         // Ottengo il numero corrente di "Mi Piace" dal contenuto dell'elemento
         const currentLikes = parseInt(likeCounter.textContent);
-  
-        // Incremento il conteggio di "Mi Piace" di 1 e aggiorniamo il testo nell'elemento
-        likeCounter.textContent = currentLikes + 1;
-      }
-  });
+
+        if (!likedPostIds.includes(postId)) {
+            likedPostIds.push(postId);
+            button.classList.add("like-button--liked");
+            // Incremento il conteggio di "Mi Piace" di 1 e aggiorniamo il testo nell'elemento
+            likeCounter.textContent = currentLikes + 1;
+        } else {
+            likedPostIds.splice(likedPostIds.indexOf(postId), 1);
+            button.classList.remove("like-button--liked");
+            likeCounter.textContent = currentLikes - 1;
+        }
+    });
 });
