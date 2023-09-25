@@ -139,6 +139,21 @@ function createPostElement(post) {
     const likes = document.createElement("div");
     likes.className = "likes js-likes";
 
+    // Creo un elemento per il pulsante "Mi Piace"
+    const likesCta = document.createElement("div");
+    likesCta.className = "likes__cta";
+
+    // Creo un link per il pulsante "Mi Piace"
+    const likeButton = document.createElement("a");
+    likeButton.className = "like-button js-like-button";
+    likeButton.href = "#";
+    likeButton.setAttribute("data-postid", post.id);
+
+    // Creo un'icona per il pulsante "Mi Piace"
+    const likeButtonIcon = document.createElement("i");
+    likeButtonIcon.className = "like-button__icon fas fa-thumbs-up";
+    likeButtonIcon.setAttribute("aria-hidden", "true");
+
     // Collego tutti gli elementi creati al post completo
     postElement.appendChild(postHeader);
     postElement.appendChild(postText);
