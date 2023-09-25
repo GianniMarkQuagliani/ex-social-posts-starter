@@ -180,6 +180,9 @@ function createPostElement(post) {
     console.log(likesCta)
     console.log(likesCounter)
 
+    // Collego il contenitore dei "Mi Piace" al footer del post
+    postFooter.appendChild(likes);
+
     // Collego tutti gli elementi creati al post completo
     postElement.appendChild(postHeader);
     console.log(postHeader)

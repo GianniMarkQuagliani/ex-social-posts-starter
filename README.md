@@ -33,3 +33,4 @@
 - Collego il pulsante "Mi Piace" al suo contenitore
 - Creo un elemento per visualizzare il conteggio dei Mi Piace
 - Collego il pulsante "Mi Piace" e il conteggio al contenitore dei "Mi Piace"
+- Collego il contenitore dei "Mi Piace" al footer del post
