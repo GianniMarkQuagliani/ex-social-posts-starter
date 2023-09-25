@@ -174,6 +174,12 @@ function createPostElement(post) {
     likesCounter.innerHTML = `Piace a <b id="like-counter-${post.id}" class="js-likes-counter">${post.likes}</b> persone`;
     console.log(likesCounter)
 
+    // Collego il pulsante "Mi Piace" e il conteggio al contenitore dei "Mi Piace"
+    likes.appendChild(likesCta);
+    likes.appendChild(likesCounter);
+    console.log(likesCta)
+    console.log(likesCounter)
+
     // Collego tutti gli elementi creati al post completo
     postElement.appendChild(postHeader);
     console.log(postHeader)
