@@ -209,6 +209,8 @@ posts.forEach((post) => {
 // Milestone 3: Gestiamo il click sul pulsante "Mi Piace"
 // Seleziono tutti i pulsanti "Mi Piace" utilizzando la classe ".js-like-button"
 const likeButtons = document.querySelectorAll(".js-like-button");
+// Creo un array per tenere traccia degli ID dei post a cui è stato messo "Mi Piace"
+const likedPostIds = [];
 
 // Iteriamo attraverso tutti i pulsanti "Mi Piace"
 likeButtons.forEach((button) => {
@@ -217,5 +219,24 @@ likeButtons.forEach((button) => {
     // Gestisco il comportamento predefinito del link (evita che la pagina venga ricaricata)
     event.preventDefault();
     const postId = parseInt(button.getAttribute("data-postid"));
+
+    // Verifico se l'ID del post è già presente nell'array dei post "Mi Piace"
+    if (!likedPostIds.includes(postId)) {
+
+        // Se l'ID del post non è presente, lo aggiungo all'array
+        likedPostIds.push(postId);
+  
+        // Aggiungo la classe "like-button--liked" al pulsante per cambiare il suo aspetto
+        button.classList.add("like-button--liked");
+  
+        // Trovo l'elemento del conteggio dei "Mi Piace" corrispondente a questo post
+        const likeCounter = document.getElementById(`like-counter-${postId}`);
+  
+        // Ottengo il numero corrente di "Mi Piace" dal contenuto dell'elemento
+        const currentLikes = parseInt(likeCounter.textContent);
+  
+        // Incremento il conteggio di "Mi Piace" di 1 e aggiorniamo il testo nell'elemento
+        likeCounter.textContent = currentLikes + 1;
+      }
   });
 });
