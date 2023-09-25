@@ -205,3 +205,17 @@ posts.forEach((post) => {
     console.log(postElement)
     console.log(post)
 });
+
+// Milestone 3: Gestiamo il click sul pulsante "Mi Piace"
+// Seleziono tutti i pulsanti "Mi Piace" utilizzando la classe ".js-like-button"
+const likeButtons = document.querySelectorAll(".js-like-button");
+
+// Iteriamo attraverso tutti i pulsanti "Mi Piace"
+likeButtons.forEach((button) => {
+    // Aggiungo un listener per il click su ciascun pulsante
+    button.addEventListener("click", (event) => {
+    // Gestisco il comportamento predefinito del link (evita che la pagina venga ricaricata)
+    event.preventDefault();
+    const postId = parseInt(button.getAttribute("data-postid"));
+  });
+});
