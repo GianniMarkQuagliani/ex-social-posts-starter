@@ -154,6 +154,11 @@ function createPostElement(post) {
     likeButtonIcon.className = "like-button__icon fas fa-thumbs-up";
     likeButtonIcon.setAttribute("aria-hidden", "true");
 
+    // Creo un'etichetta per il pulsante "Mi Piace"
+    const likeButtonLabel = document.createElement("span");
+    likeButtonLabel.className = "like-button__label";
+    likeButtonLabel.textContent = "Mi Piace";
+
     // Collego tutti gli elementi creati al post completo
     postElement.appendChild(postHeader);
     postElement.appendChild(postText);

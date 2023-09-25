@@ -28,3 +28,4 @@
 - Creo un elemento per il pulsante "Mi Piace"
 - Creo un link per il pulsante "Mi Piace"
 - Creo un'icona per il pulsante "Mi Piace"
+- Creo un'etichetta per il pulsante "Mi Piace"
