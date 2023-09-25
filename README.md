@@ -29,3 +29,5 @@
 - Creo un link per il pulsante "Mi Piace"
 - Creo un'icona per il pulsante "Mi Piace"
 - Creo un'etichetta per il pulsante "Mi Piace"
+- Collego l'icona e l'etichetta al pulsante "Mi Piace"
+- Collego il pulsante "Mi Piace" al suo contenitore

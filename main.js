@@ -137,6 +137,7 @@ function createPostElement(post) {
 
     // Creo un elemento per il footer del post
     const likes = document.createElement("div");
+    console.log(likes)
     likes.className = "likes js-likes";
 
     // Creo un elemento per il pulsante "Mi Piace"
@@ -158,19 +159,34 @@ function createPostElement(post) {
     const likeButtonLabel = document.createElement("span");
     likeButtonLabel.className = "like-button__label";
     likeButtonLabel.textContent = "Mi Piace";
+    console.log(likeButton)
+
+    // Collego l'icona e l'etichetta al pulsante "Mi Piace"
+    likeButton.appendChild(likeButtonIcon);
+    likeButton.appendChild(likeButtonLabel);
+
+    // Collego il pulsante "Mi Piace" al suo contenitore
+    likesCta.appendChild(likeButton);
 
     // Collego tutti gli elementi creati al post completo
     postElement.appendChild(postHeader);
+    console.log(postHeader)
     postElement.appendChild(postText);
+    console.log(postText)
     postElement.appendChild(postImage);
+    console.log(postImage)
     postElement.appendChild(postFooter);
+    console.log(postFooter)
 
     // Restituisci l'elemento del post completo
     return postElement;
+
 }
 
 // Iteriamo attraverso l'array di post e creiamo gli elementi HTML per ciascun post
 posts.forEach((post) => {
     const postElement = createPostElement(post);
     container.appendChild(postElement);
+    console.log(postElement)
+    console.log(post)
 });
